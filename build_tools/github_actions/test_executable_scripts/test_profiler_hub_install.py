@@ -119,10 +119,7 @@ def run_tests(build_dir: Path):
     rocm_lib = str(artifacts_path / "lib")
     base_env = os.environ.copy()
 
-    # We configure and build the test project externally (not during TheRock
-    # build) to emulate how a consumer would build against the installed
-    # profiler-hub artifacts. This catches packaging issues that only manifest
-    # during external consumption.
+    # Configure and build externally, as a consumer builds against installed artifacts.
 
     # Configuration 1: ROCm's own clang -- the toolchain profiler-hub ships with.
     rocm_clang_dir = build_dir / "rocm-clang"
@@ -145,9 +142,8 @@ def run_tests(build_dir: Path):
     else:
         print("[A3] no-LD_LIBRARY_PATH run: PASS")
 
-    # Configuration 2: the distro/system compiler. profiler-hub is host-only
-    # C++17, not HIP, and its real consumers build with the system toolchain,
-    # not ROCm's clang -- prove that path too, alongside the first.
+    # Configuration 2: the distro/system compiler. profiler-hub is host-only C++17,
+    # so real consumers build it with the system toolchain rather than ROCm's clang.
     ok, cxx_or_reason, cc = system_cxx17_capability()
     if not ok:
         print(f"[D2] system-compiler configuration: SKIPPED — {cxx_or_reason}")

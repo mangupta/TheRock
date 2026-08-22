@@ -1132,7 +1132,6 @@ gpgcheck=0
                 f"-DCMAKE_CXX_COMPILER={cxx}",
             ]
             build_cmd = ["cmake", "--build", str(build_dir)]
-            # No LD_LIBRARY_PATH set here -- see docstring.
             env = os.environ.copy()
             env.pop("LD_LIBRARY_PATH", None)
             test_cmd = [

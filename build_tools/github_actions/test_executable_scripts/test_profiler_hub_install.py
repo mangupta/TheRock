@@ -119,7 +119,6 @@ def run_tests(build_dir: Path):
     rocm_lib = str(artifacts_path / "lib")
     base_env = os.environ.copy()
 
-    # Configure and build externally, as a consumer builds against installed artifacts.
 
     # Configuration 1: ROCm's own clang -- the toolchain profiler-hub ships with.
     rocm_clang_dir = build_dir / "rocm-clang"

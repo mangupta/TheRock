@@ -674,8 +674,7 @@ test_matrix = {
             "windows": 1,
         },
     },
-    # profiler-hub install/consumption tests. A packaging proof (find_package,
-    # link, load) with no device work, so it does not need a GPU runner.
+    # profiler-hub install/consumption tests
     "profiler-hub": {
         "job_name": "profiler-hub",
         "timeout_minutes": 30,

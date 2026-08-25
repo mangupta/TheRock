@@ -565,7 +565,6 @@ class BuildConfig:
     build_python_packages: bool
     build_pytorch: bool
     build_jax: bool
-    validate_artifact_structure: bool = True
     test_python_packages_matrix: list[dict[str, str]] = field(default_factory=list)
     pytorch_build_matrix: list[dict[str, str]] = field(default_factory=list)
     jax_build_matrix: list[dict[str, str]] = field(default_factory=list)
@@ -1253,10 +1252,6 @@ def _expand_build_config_for_platform(
     is_asan = suffix == "asan"
     build_python_packages = ci_inputs.build_python_packages and not is_asan
 
-    # Artifact validation only makes sense for full builds. When build_stages
-    # limits the build to a subset, the artifact tree is incomplete.
-    validate_artifact_structure = not ci_inputs.build_stages
-
     return BuildConfig(
         per_family_info=per_family_info,
         dist_amdgpu_families=dist_amdgpu_families,
@@ -1268,7 +1263,6 @@ def _expand_build_config_for_platform(
         build_python_packages=build_python_packages,
         build_pytorch=build_pytorch,
         build_jax=build_jax,
-        validate_artifact_structure=validate_artifact_structure,
         pytorch_build_matrix=pytorch_build_matrix,
         jax_build_matrix=jax_build_matrix,
         build_runs_on=build_runs_on,
